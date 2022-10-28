@@ -1,12 +1,24 @@
-import React from 'react';
+import React,{ useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom'; 
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
+import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
+import Image from 'react-bootstrap/Image';
+import { FaUserAlt } from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
+
+
 
 const Header = () => {
+    const {user, logOut} = useContext(AuthContext);
     
+    const handleLogOut = () =>{
+        logOut()
+         .then( () =>{})
+         .catch( error => console.error(error))
+    }
     return (
         <Navbar className='mb-4' collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -20,9 +32,31 @@ const Header = () => {
                     
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#deets">displayName</Nav.Link>
+                    <Nav.Link href="#deets">
+                        {
+                            user?.uid?
+                            <>
+                                <span>{user?.displayName}</span>
+                                <Button variant="light" onClick={handleLogOut}>Log Out</Button>
+                            </>
+                            :
+                            <>
+                                <Link to='/login'>Login</Link>
+                                <Link to='/register'>Register</Link>
+                            </>
+                        }
+
+                    </Nav.Link>
                     <Nav.Link eventKey={2} href="#memes">
-                    Dank memes
+                    {user?.photoURL ?
+                        <Image 
+                            style={{height:'30px'}}
+                            roundedCircle
+                            src={user?.photoURL}
+                        ></Image>
+                        :
+                        <FaUserAlt></FaUserAlt>
+                }
                     </Nav.Link>
                 </Nav>
                 <div className='d-lg-none'> 

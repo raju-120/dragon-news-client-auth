@@ -32,11 +32,11 @@ const Header = () => {
                     
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#deets">
+                    <>
                         {
                             user?.uid?
                             <>
-                                <span>{user?.displayName}</span>
+                                <span className='text-white'>{user?.displayName}</span>
                                 <Button variant="light" onClick={handleLogOut}>Log Out</Button>
                             </>
                             :
@@ -46,8 +46,8 @@ const Header = () => {
                             </>
                         }
 
-                    </Nav.Link>
-                    <Nav.Link eventKey={2} href="#memes">
+                    </>
+                    <Link to='/profile'>
                     {user?.photoURL ?
                         <Image 
                             style={{height:'30px'}}
@@ -57,7 +57,7 @@ const Header = () => {
                         :
                         <FaUserAlt></FaUserAlt>
                 }
-                    </Nav.Link>
+                    </Link>
                 </Nav>
                 <div className='d-lg-none'> 
                     <LeftSideNav></LeftSideNav>

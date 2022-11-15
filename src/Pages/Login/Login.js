@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import useTitle from '../../Hooks/useTitle';
 
  
 
@@ -12,10 +13,9 @@ const Login = () => {
 
     const [error , setError] = useState(' ');
     const { signIn, setLoading } = useContext(AuthContext);
-
-    
     const navigate = useNavigate();
     const location = useLocation();
+    useTitle('Login')
 
     const from = location.state?.from?.pathname || '/';
 
